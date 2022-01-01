@@ -6,6 +6,7 @@ import com.phonebook.resource.entity.CustomerModel;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static com.phonebook.common.Constants.*;
@@ -16,31 +17,14 @@ public class CustomerResourceCtrl {
         return customerEntities.stream().map(this::getCustomerModelFromCustomerEntity).collect(Collectors.toList());
     }
 
-    private void updateCustomerDetails(CustomerModel customerModel) {
-        if(customerModel.getPhone().contains("(" + CAMEROON_COUNTRY_CODE + ")")) {
-            customerModel.setCountry(CAMEROON_COUNTRY_NAME);
-            customerModel.setCountryCode(CAMEROON_COUNTRY_CODE);
-        } else if(customerModel.getPhone().contains("(" + ETHIOPIA_COUNTRY_CODE + ")")) {
-            customerModel.setCountry(ETHIOPIA_COUNTRY_NAME);
-            customerModel.setCountryCode(ETHIOPIA_COUNTRY_CODE);
-        } else if(customerModel.getPhone().contains("(" + MOROCCO_COUNTRY_CODE + ")")) {
-            customerModel.setCountry(MOROCCO_COUNTRY_NAME);
-            customerModel.setCountryCode(MOROCCO_COUNTRY_CODE);
-        } else if(customerModel.getPhone().contains("(" + MOZAMBIQUE_COUNTRY_CODE + ")")) {
-            customerModel.setCountry(MOZAMBIQUE_COUNTRY_NAME);
-            customerModel.setCountryCode(MOZAMBIQUE_COUNTRY_CODE);
-        } else if(customerModel.getPhone().contains("(" + UGANDA_COUNTRY_CODE + ")")) {
-            customerModel.setCountry(UGANDA_COUNTRY_NAME);
-            customerModel.setCountryCode(UGANDA_COUNTRY_CODE);
-        } else {
-            customerModel.setCountry(INVALID_COUNTRY_NAME);
-            customerModel.setCountryCode(INVALID_COUNTRY_CODE);
-        }
+    private boolean validateCustomerNumber(String phoneNumber) {
+        return Pattern.matches(CAMEROON_NUMBER_REGEX + "|" + ETHIOPIA_NUMBER_REGEX + "|"
+                + MOROCCO_NUMBER_REGEX + "|" + MOZAMBIQUE_NUMBER_REGEX + "|" + UGANDA_NUMBER_REGEX, phoneNumber);
     }
 
     private CustomerModel getCustomerModelFromCustomerEntity(CustomerEntity customer) {
         CustomerModel customerModel = Utilities.getModelMapper().map(customer, CustomerModel.class);
-        updateCustomerDetails(customerModel);
+        customerModel.setState(validateCustomerNumber(customerModel.getPhone()));
 
         return customerModel;
     }

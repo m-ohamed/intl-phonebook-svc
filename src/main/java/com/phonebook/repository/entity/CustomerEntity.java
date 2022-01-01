@@ -20,13 +20,31 @@ public class CustomerEntity {
     private String phone;
 
     @Transient
-    private boolean state;
+    private String country;
+
+    @Transient
+    private String countryCode;
 
     @PostLoad
     private void postLoad() {
-        if(Pattern.matches(CAMEROON_NUMBER_REGEX + "|" + ETHIOPIA_NUMBER_REGEX + "|"
-                + MOROCCO_NUMBER_REGEX + "|" + MOZAMBIQUE_NUMBER_REGEX + "|" + UGANDA_NUMBER_REGEX, this.phone)) {
-            this.state = true;
+        if(this.phone.contains("(" + CAMEROON_COUNTRY_CODE + ")")) {
+            this.country = CAMEROON_COUNTRY_NAME;
+            this.countryCode = CAMEROON_COUNTRY_CODE;
+        } else if(this.phone.contains("(" + ETHIOPIA_COUNTRY_CODE + ")")) {
+            this.country = ETHIOPIA_COUNTRY_NAME;
+            this.countryCode = ETHIOPIA_COUNTRY_CODE;
+        } else if(this.phone.contains("(" + MOROCCO_COUNTRY_CODE + ")")) {
+            this.country = MOROCCO_COUNTRY_NAME;
+            this.countryCode = MOROCCO_COUNTRY_CODE;
+        } else if(this.phone.contains("(" + MOZAMBIQUE_COUNTRY_CODE + ")")) {
+            this.country = MOZAMBIQUE_COUNTRY_NAME;
+            this.countryCode = MOZAMBIQUE_COUNTRY_CODE;
+        } else if(this.phone.contains("(" + UGANDA_COUNTRY_CODE + ")")) {
+            this.country = UGANDA_COUNTRY_NAME;
+            this.countryCode = UGANDA_COUNTRY_CODE;
+        } else {
+            this.country = INVALID_COUNTRY_NAME;
+            this.countryCode = INVALID_COUNTRY_CODE;
         }
     }
 }
