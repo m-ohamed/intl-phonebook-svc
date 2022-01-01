@@ -17,7 +17,7 @@ public class CustomerResourceCtrl {
         return customerEntities.stream().map(this::getCustomerModelFromCustomerEntity).collect(Collectors.toList());
     }
 
-    private boolean validateCustomerNumber(String phoneNumber) {
+    public boolean validateCustomerNumber(String phoneNumber) {
         return Pattern.matches(CAMEROON_NUMBER_REGEX + "|" + ETHIOPIA_NUMBER_REGEX + "|"
                 + MOROCCO_NUMBER_REGEX + "|" + MOZAMBIQUE_NUMBER_REGEX + "|" + UGANDA_NUMBER_REGEX, phoneNumber);
     }
