@@ -7,3 +7,9 @@ The repository currently contains a Dockerfile to dockerize this application, ho
 This application runs on port 8080 and currently has only one REST API endpoint:
 
 GET: /customer/ This endpoint returns the last of all customers in the database categorized and validated.
+
+You could run this application by running the following command in the root folder of the project:
+
+```sh
+mvn spring-boot:run
+```
