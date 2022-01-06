@@ -1,6 +1,10 @@
 package com.phonebook.common;
 
 public class Constants {
+    /*
+    This class holds all the constants used throughout the application. This allows it to be easily and quickly changed
+    if there are any changes to it. Usually this would be a lookup that resides in the database.
+     */
     public static final String CAMEROON_COUNTRY_CODE = "237";
     public static final String ETHIOPIA_COUNTRY_CODE = "251";
     public static final String MOROCCO_COUNTRY_CODE = "212";

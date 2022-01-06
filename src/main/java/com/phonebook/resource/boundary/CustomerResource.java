@@ -16,6 +16,11 @@ import java.util.List;
 @RequestMapping("/customer")
 public class CustomerResource {
 
+    /*
+    This is where the REST API resides. There is currently only one endpoint, a GET endpoint that returns all the
+    available customer after performing the validations. If there is no data it returns a 204 no content.
+     */
+
     private CustomerResourceCtrl customerResourceCtrl;
     private CustomerRepository customerRepository;
 
